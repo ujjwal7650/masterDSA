@@ -728,6 +728,12 @@ button{font-family:inherit}
   firebase.initializeApp(firebaseConfig);
   window.fbAuth = firebase.auth();
   window.fbDb = firebase.firestore();
+  // Cache reads locally (IndexedDB) so a returning user's progress can be
+  // shown instantly from cache while a fresh copy is fetched in the
+  // background, instead of always waiting on a full network round trip.
+  try{
+    window.fbDb.enablePersistence({ synchronizeTabs: true }).catch(()=>{});
+  }catch(e){}
 </script>
 <script>
 (function(){
@@ -763,12 +769,10 @@ button{font-family:inherit}
   let currentUser = null; // Firebase user object, or null when signed out
 
   const THEME_KEY = 'dsa-theme-v1';
-  const MIN_SKELETON_MS = 550;
 
   function debounce(fn, ms){
     let h; return (...a)=>{ clearTimeout(h); h=setTimeout(()=>fn(...a), ms); };
   }
-  function wait(ms){ return new Promise(r=>setTimeout(r, ms)); }
   function initials(name, email){
     const src = (name || email || '?').trim();
     if(!src) return '?';
@@ -783,14 +787,46 @@ button{font-family:inherit}
     return db.collection('progress').doc(uid);
   }
 
-  async function loadProgressFor(user){
-    let s = { solved:{}, revise:{}, notes:{} };
+  function emptyProgress(){ return { solved:{}, revise:{}, notes:{} }; }
+
+  // preferCache=true tries the local IndexedDB cache first (near-instant,
+  // works even if there's nothing cached yet — in which case it just
+  // throws and we fall through to the network). Used on the first render
+  // after sign-in so the dashboard doesn't sit waiting on a network
+  // round trip. The background refresh afterwards always hits the server
+  // to make sure the person sees the truly latest data.
+  async function loadProgressFor(user, preferCache){
+    let s = emptyProgress();
     if(!user) return s; // shouldn't happen — even guests get an anonymous uid
+    if(preferCache){
+      try{
+        const cached = await progressDocRef(user.uid).get({ source:'cache' });
+        if(cached && cached.exists) return Object.assign(s, cached.data());
+      }catch(e){ /* nothing cached yet on this device — fall through */ }
+    }
     try{
       const snap = await progressDocRef(user.uid).get();
       if(snap.exists) s = Object.assign(s, snap.data());
     }catch(e){ console.error('load progress failed', e); }
     return s;
+  }
+
+  // Quietly re-fetch from the server after the cached/initial render, and
+  // only touch the screen if the data actually changed (e.g. progress made
+  // on another device). Keeps the dashboard feeling instant without ever
+  // showing stale data for long.
+  async function refreshProgressFromServer(){
+    if(!currentUser) return;
+    try{
+      const snap = await progressDocRef(currentUser.uid).get({ source:'server' });
+      const fresh = snap.exists ? Object.assign(emptyProgress(), snap.data()) : emptyProgress();
+      if(JSON.stringify(fresh) !== JSON.stringify(state)){
+        state = fresh;
+        renderDashboard();
+        renderStepNav();
+        renderSteps();
+      }
+    }catch(e){ /* offline, or nothing new — safe to ignore */ }
   }
 
   function loadTheme(){
@@ -832,18 +868,20 @@ button{font-family:inherit}
 
   async function enterApp(){
     // Switch to the loading animation immediately — don't wait for the
-    // (potentially slow) Firestore fetch below before leaving the
-    // sign-in screen. This is what makes sign-in feel instant instead of
-    // "stuck" on the sign-in form while progress data loads.
+    // Firestore fetch below before leaving the sign-in screen.
     hideAuthScreen();
     showSkeleton();
-    const started = Date.now();
-    state = await loadProgressFor(currentUser);
+    // Try the local cache first so returning users see their dashboard
+    // right away instead of waiting on a network round trip every time.
+    // No artificial minimum delay — hide the skeleton the instant we have
+    // data to show.
+    state = await loadProgressFor(currentUser, true);
     updateUserChrome();
-    const elapsed = Date.now() - started;
-    if(elapsed < 350) await wait(350 - elapsed);
     hideSkeleton();
     render();
+    // Confirm against the server in the background in case another
+    // device has newer progress; this never blocks what's on screen.
+    refreshProgressFromServer();
   }
 
   function showSkeleton(){ document.getElementById('skeletonScreen').classList.remove('hidden'); }
