@@ -831,6 +831,11 @@ button{font-family:inherit}
   }
 
   async function enterApp(){
+    // Switch to the loading animation immediately — don't wait for the
+    // (potentially slow) Firestore fetch below before leaving the
+    // sign-in screen. This is what makes sign-in feel instant instead of
+    // "stuck" on the sign-in form while progress data loads.
+    hideAuthScreen();
     showSkeleton();
     const started = Date.now();
     state = await loadProgressFor(currentUser);
@@ -838,7 +843,6 @@ button{font-family:inherit}
     const elapsed = Date.now() - started;
     if(elapsed < 350) await wait(350 - elapsed);
     hideSkeleton();
-    hideAuthScreen();
     render();
   }
 
@@ -938,44 +942,66 @@ button{font-family:inherit}
     if(!email || !password){ showAuthError('Please fill in email and password.'); return; }
     if(!/^\S+@\S+\.\S+$/.test(email)){ showAuthError('Enter a valid email address.'); return; }
 
+    const originalLabel = authSubmitBtn.textContent;
     authSubmitBtn.disabled = true;
+    authSubmitBtn.textContent = authMode === 'signup' ? 'Creating account…' : 'Signing in…';
     try{
       if(authMode === 'signup'){
-        if(!name){ showAuthError('Please enter your name.'); authSubmitBtn.disabled = false; return; }
-        if(password.length < 6){ showAuthError('Password should be at least 6 characters.'); authSubmitBtn.disabled = false; return; }
+        if(!name){ showAuthError('Please enter your name.'); authSubmitBtn.disabled = false; authSubmitBtn.textContent = originalLabel; return; }
+        if(password.length < 6){ showAuthError('Password should be at least 6 characters.'); authSubmitBtn.disabled = false; authSubmitBtn.textContent = originalLabel; return; }
         const cred = await auth.createUserWithEmailAndPassword(email, password);
         await cred.user.updateProfile({ displayName: name });
         document.getElementById('authForm').reset();
         showToast('Account created — welcome, ' + name + '!');
-        // onAuthStateChanged will fire automatically and call enterApp()
+        // onAuthStateChanged will fire automatically and call enterApp(),
+        // which immediately swaps to the loading animation.
       } else {
         const cred = await auth.signInWithEmailAndPassword(email, password);
         document.getElementById('authForm').reset();
         showToast('Welcome back, ' + (cred.user.displayName || cred.user.email) + '!');
       }
+      // Success: leave the button in its busy state — onAuthStateChanged
+      // is about to swap the whole screen to the loading animation, so
+      // there's no need (and no time) to restore the label.
+      return;
     }catch(err){
       showAuthError(friendlyAuthError(err));
     }
     authSubmitBtn.disabled = false;
+    authSubmitBtn.textContent = originalLabel;
   });
 
-  document.getElementById('googleSignInBtn').addEventListener('click', async ()=>{
+  document.getElementById('googleSignInBtn').addEventListener('click', async (e)=>{
     authError.classList.remove('show');
+    const btn = e.currentTarget;
+    const originalHtml = btn.innerHTML;
+    btn.disabled = true;
+    btn.textContent = 'Signing in…';
     try{
       const cred = await auth.signInWithPopup(googleProvider);
       showToast('Welcome, ' + (cred.user.displayName || cred.user.email) + '!');
+      return; // onAuthStateChanged takes over from here
     }catch(err){
       showAuthError(friendlyAuthError(err));
     }
+    btn.disabled = false;
+    btn.innerHTML = originalHtml;
   });
 
-  document.getElementById('guestBtn').addEventListener('click', async ()=>{
+  document.getElementById('guestBtn').addEventListener('click', async (e)=>{
     authError.classList.remove('show');
+    const btn = e.currentTarget;
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Continuing…';
     try{
       await auth.signInAnonymously();
+      return; // onAuthStateChanged takes over from here
     }catch(err){
       showAuthError(friendlyAuthError(err));
     }
+    btn.disabled = false;
+    btn.textContent = originalText;
   });
 
   // ---------- Show / hide password ----------
