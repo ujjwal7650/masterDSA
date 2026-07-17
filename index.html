@@ -8,44 +8,48 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap");
 
 :root{
-  --bg-color:#000000;
-  --surface-color:#202124;
-  --surface-hover:#2d2f31;
-  --surface-raised:#18191b;
-  --text-primary:#e8eaed;
-  --text-secondary:#9aa0a6;
-  --border-color:#3c4043;
-  --primary-color:#8ab4f8;
-  --primary-hover:#1a73e8;
-  --danger-color:#f28b82;
-  --warning-color:#fdd663;
-  --revision-color:#3ddc84;
+  --bg-color:#0b0e14;
+  --surface-color:#131722;
+  --surface-hover:#1c2231;
+  --surface-raised:#151a26;
+  --text-primary:#eef1f8;
+  --text-secondary:#8b93a7;
+  --border-color:#242b3d;
+  --primary-color:#7c8cff;
+  --primary-hover:#5b6cf0;
+  --primary-glow:rgba(124,140,255,.35);
+  --danger-color:#ff6b6b;
+  --warning-color:#ffc857;
+  --revision-color:#2dd4a7;
+  --accent-2:#ff7ac6;
   --shadow-sm:0 1px 3px 0 rgb(0 0 0 / .4);
-  --shadow-md:0 4px 12px -1px rgb(0 0 0 / .5),0 2px 6px -2px rgb(0 0 0 / .3);
-  --shadow-lg:0 10px 30px -3px rgb(0 0 0 / .6),0 4px 10px -4px rgb(0 0 0 / .4);
-  --glass-bg:rgba(32,33,36,.85);
-  --glass-border:rgba(255,255,255,.07);
+  --shadow-md:0 8px 20px -4px rgb(0 0 0 / .5),0 2px 8px -2px rgb(0 0 0 / .35);
+  --shadow-lg:0 20px 45px -10px rgb(0 0 0 / .65),0 8px 16px -6px rgb(0 0 0 / .45);
+  --glass-bg:rgba(19,23,34,.82);
+  --glass-border:rgba(255,255,255,.06);
   --sidebar-width:280px;
   --header-height:64px;
 }
 [data-theme=light]{
-  --bg-color:#f8fafc;
+  --bg-color:#ffffff;
   --surface-color:#ffffff;
-  --surface-hover:#f1f5f9;
+  --surface-hover:#f5f6f8;
   --surface-raised:#ffffff;
-  --text-primary:#0f172a;
-  --text-secondary:#586174;
-  --border-color:#e2e8f0;
-  --primary-color:#eb5757;
-  --primary-hover:#dc2626;
-  --danger-color:#ef4444;
-  --warning-color:#c2820a;
-  --revision-color:#c2410c;
-  --shadow-sm:0 1px 3px 0 rgb(0 0 0 / .06);
-  --shadow-md:0 4px 12px -1px rgb(0 0 0 / .1);
-  --shadow-lg:0 10px 30px -3px rgb(0 0 0 / .15);
-  --glass-bg:rgba(248,250,252,.9);
-  --glass-border:rgba(0,0,0,.06);
+  --text-primary:#1a1d24;
+  --text-secondary:#6b7280;
+  --border-color:#e5e7eb;
+  --primary-color:#2563eb;
+  --primary-hover:#1d4ed8;
+  --primary-glow:rgba(37,99,235,.16);
+  --danger-color:#dc2626;
+  --warning-color:#d97706;
+  --revision-color:#059669;
+  --accent-2:#2563eb;
+  --shadow-sm:0 1px 2px 0 rgb(0 0 0 / .04);
+  --shadow-md:0 6px 16px -4px rgb(0 0 0 / .08);
+  --shadow-lg:0 16px 36px -10px rgb(0 0 0 / .12);
+  --glass-bg:rgba(255,255,255,.9);
+  --glass-border:rgba(0,0,0,.05);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -84,7 +88,7 @@ button{font-family:inherit}
 .menu-btn:hover{background:var(--surface-hover)}
 .logo{
   font-size:1.3rem;font-weight:800;letter-spacing:-.02em;white-space:nowrap;
-  background:linear-gradient(135deg,#34d399,#059669);
+  background:linear-gradient(135deg,var(--primary-color),var(--accent-2));
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
   cursor:pointer;display:flex;align-items:center;gap:.4rem;
 }
@@ -113,7 +117,7 @@ button{font-family:inherit}
 }
 .streak-pill b{color:var(--revision-color);font-weight:700}
 .btn-primary{
-  background:var(--primary-color);color:#04121f;border:none;padding:.5rem 1rem;
+  background:var(--primary-color);color:#fff;border:none;padding:.5rem 1rem;
   border-radius:8px;font-weight:700;cursor:pointer;transition:all .15s;font-size:.82rem;
   white-space:nowrap;
 }
@@ -184,6 +188,40 @@ button{font-family:inherit}
 .stat-card .bar{height:5px;background:var(--border-color);border-radius:3px;margin-top:.65rem;overflow:hidden}
 .stat-card .bar-fill{height:100%;border-radius:3px;background:var(--primary-color)}
 
+/* ---------- Submission calendar ---------- */
+.calendar-card{
+  background:var(--surface-color);border:1px solid var(--border-color);border-radius:14px;
+  padding:1.1rem 1.2rem 1rem;margin-bottom:1.4rem;
+}
+.cal-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.4rem;margin-bottom:.9rem}
+.cal-title{font-size:.85rem;font-weight:700}
+.cal-title b{color:var(--primary-color)}
+.cal-stats{display:flex;gap:1.1rem;flex-wrap:wrap}
+.cal-stat{font-size:.74rem;color:var(--text-secondary)}
+.cal-stat b{color:var(--text-primary);font-weight:700}
+.cal-scroll{overflow-x:auto;padding-bottom:.2rem}
+.cal-inner{display:inline-flex;flex-direction:column;gap:.3rem;min-width:100%}
+.cal-months{display:flex;gap:3px;padding-left:26px;position:relative;height:14px}
+.cal-month-lbl{position:absolute;font-size:.65rem;color:var(--text-secondary);white-space:nowrap}
+.cal-body{display:flex;gap:3px}
+.cal-daylabels{display:flex;flex-direction:column;gap:3px;width:22px;flex-shrink:0}
+.cal-daylabels span{height:11px;font-size:.6rem;line-height:11px;color:var(--text-secondary);text-align:right;padding-right:4px}
+.cal-weeks{display:flex;gap:3px}
+.cal-week{display:flex;flex-direction:column;gap:3px}
+.cal-day{
+  width:11px;height:11px;border-radius:3px;background:var(--border-color);cursor:default;
+  transition:transform .1s ease, outline-color .1s ease;flex-shrink:0;
+}
+.cal-day:hover{transform:scale(1.25);outline:1px solid var(--text-secondary);outline-offset:1px}
+.cal-day.future{visibility:hidden}
+.cal-day.lvl-1{background:color-mix(in srgb, var(--revision-color) 30%, var(--border-color))}
+.cal-day.lvl-2{background:color-mix(in srgb, var(--revision-color) 55%, var(--border-color))}
+.cal-day.lvl-3{background:color-mix(in srgb, var(--revision-color) 80%, var(--border-color))}
+.cal-day.lvl-4{background:var(--revision-color)}
+.cal-legend{display:flex;align-items:center;gap:.3rem;margin-top:.6rem;font-size:.68rem;color:var(--text-secondary);justify-content:flex-end}
+.cal-legend .cal-day{width:10px;height:10px;cursor:default}
+.cal-legend .cal-day:hover{transform:none;outline:none}
+
 .toolbar{
   display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:1.2rem;
   position:sticky;top:0;background:var(--bg-color);padding:.6rem 0;z-index:10;
@@ -193,7 +231,7 @@ button{font-family:inherit}
   background:transparent;border:none;color:var(--text-secondary);padding:.4rem .8rem;border-radius:8px;
   font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;
 }
-.seg button.active{background:var(--primary-color);color:#04121f}
+.seg button.active{background:var(--primary-color);color:#fff}
 [data-theme=light] .seg button.active{color:#fff}
 .select-pill{
   background:var(--surface-color);border:1px solid var(--border-color);color:var(--text-primary);
@@ -246,9 +284,9 @@ button{font-family:inherit}
   font-size:.68rem;font-weight:700;padding:.2rem .5rem;border-radius:6px;white-space:nowrap;flex-shrink:0;
   text-transform:uppercase;letter-spacing:.02em;
 }
-.diff-0{background:rgba(61,220,132,.14);color:var(--revision-color)}
-.diff-1{background:rgba(253,214,99,.14);color:var(--warning-color)}
-.diff-2{background:rgba(242,139,130,.14);color:var(--danger-color)}
+.diff-0{background:color-mix(in srgb, var(--revision-color) 16%, transparent);color:var(--revision-color)}
+.diff-1{background:color-mix(in srgb, var(--warning-color) 16%, transparent);color:var(--warning-color)}
+.diff-2{background:color-mix(in srgb, var(--danger-color) 16%, transparent);color:var(--danger-color)}
 .res-links{display:flex;align-items:center;gap:.15rem;flex-shrink:0}
 .res-links a,.res-links button{
   width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;
@@ -367,7 +405,7 @@ button{font-family:inherit}
 .auth-bg-glow::before{
   content:"";position:absolute;top:-20%;left:50%;transform:translateX(-50%);
   width:900px;height:500px;border-radius:50%;
-  background:radial-gradient(circle, rgba(52,211,153,.13), transparent 70%);
+  background:radial-gradient(circle, var(--primary-glow), transparent 70%);
 }
 .auth-card{
   position:relative;z-index:1;width:100%;max-width:380px;background:var(--surface-raised);
@@ -382,7 +420,7 @@ button{font-family:inherit}
 .auth-close-btn:hover{background:var(--surface-hover);color:var(--text-primary)}
 .btn-signin{
   display:flex;align-items:center;gap:.4rem;
-  background:var(--primary-color);color:#04121f;border:none;padding:.5rem 1rem;
+  background:var(--primary-color);color:#fff;border:none;padding:.5rem 1rem;
   border-radius:8px;font-weight:700;cursor:pointer;transition:all .15s;font-size:.82rem;
   white-space:nowrap;
 }
@@ -391,14 +429,14 @@ button{font-family:inherit}
 .auth-logo{
   display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:1.6rem;
   font-size:1.35rem;font-weight:800;letter-spacing:-.02em;
-  background:linear-gradient(135deg,#34d399,#059669);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  background:linear-gradient(135deg,var(--primary-color),var(--accent-2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
 }
 .auth-tabs{display:flex;background:var(--surface-color);border:1px solid var(--border-color);border-radius:10px;padding:3px;margin-bottom:1.3rem}
 .auth-tabs button{
   flex:1;background:transparent;border:none;color:var(--text-secondary);padding:.5rem;border-radius:8px;
   font-weight:700;font-size:.82rem;cursor:pointer;transition:all .15s;
 }
-.auth-tabs button.active{background:var(--primary-color);color:#04121f}
+.auth-tabs button.active{background:var(--primary-color);color:#fff}
 [data-theme=light] .auth-tabs button.active{color:#fff}
 .auth-field{margin-bottom:.9rem}
 .auth-field label{display:block;font-size:.74rem;font-weight:700;color:var(--text-secondary);margin-bottom:.35rem;text-transform:uppercase;letter-spacing:.04em}
@@ -408,12 +446,12 @@ button{font-family:inherit}
 }
 .auth-field input:focus{border-color:var(--primary-color)}
 .auth-error{
-  background:rgba(242,139,130,.12);border:1px solid rgba(242,139,130,.35);color:var(--danger-color);
+  background:color-mix(in srgb, var(--danger-color) 12%, transparent);border:1px solid color-mix(in srgb, var(--danger-color) 35%, transparent);color:var(--danger-color);
   border-radius:9px;padding:.55rem .7rem;font-size:.78rem;font-weight:600;margin-bottom:.9rem;display:none;
 }
 .auth-error.show{display:block}
 .auth-submit{
-  width:100%;background:var(--primary-color);color:#04121f;border:none;padding:.7rem;border-radius:10px;
+  width:100%;background:var(--primary-color);color:#fff;border:none;padding:.7rem;border-radius:10px;
   font-weight:700;font-size:.88rem;cursor:pointer;transition:all .15s;margin-top:.2rem;
 }
 [data-theme=light] .auth-submit{color:#fff}
@@ -447,7 +485,7 @@ button{font-family:inherit}
 .forgot-title{font-size:1.02rem;font-weight:800;margin-bottom:.5rem}
 .forgot-copy{font-size:.82rem;color:var(--text-secondary);margin-bottom:1.1rem;line-height:1.5}
 .otp-callout{
-  background:rgba(138,180,248,.1);border:1px solid rgba(138,180,248,.3);border-radius:10px;
+  background:var(--primary-glow);border:1px solid color-mix(in srgb, var(--primary-color) 30%, transparent);border-radius:10px;
   padding:.8rem .9rem;margin-bottom:1rem;font-size:.8rem;line-height:1.55;color:var(--text-primary);
 }
 .otp-callout b{
@@ -467,8 +505,8 @@ button{font-family:inherit}
 }
 .account-row:hover{background:var(--surface-hover);border-color:var(--primary-color)}
 .account-row-avatar{
-  width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#34d399,#059669);
-  color:#04170c;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;flex-shrink:0;
+  width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary-color),var(--accent-2));
+  color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;flex-shrink:0;
 }
 .account-row-avatar.plus-avatar{background:var(--surface-hover);color:var(--text-secondary);font-size:1.1rem}
 .account-row-text{min-width:0;flex:1}
@@ -484,10 +522,11 @@ button{font-family:inherit}
 /* ---------- User menu ---------- */
 .user-menu{position:relative}
 .user-avatar{
-  width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#34d399,#059669);
-  color:#04170c;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;
-  cursor:pointer;border:none;flex-shrink:0;
+  width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--primary-color),var(--accent-2));
+  color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;
+  cursor:pointer;border:none;flex-shrink:0;transition:transform .18s ease,box-shadow .18s ease;
 }
+.user-avatar:hover{transform:scale(1.06);box-shadow:0 0 0 4px var(--primary-glow)}
 .user-dropdown{
   position:absolute;top:calc(100% + 8px);right:0;width:220px;background:var(--surface-raised);
   border:1px solid var(--border-color);border-radius:12px;box-shadow:var(--shadow-lg);padding:.5rem;
@@ -503,9 +542,151 @@ button{font-family:inherit}
 }
 .user-dropdown button:hover{background:var(--surface-hover)}
 .user-dropdown button.danger{color:var(--danger-color)}
+
+/* ================= Polish & engagement layer ================= */
+
+body{background-image:radial-gradient(circle at 15% -10%, color-mix(in srgb, var(--primary-color) 10%, transparent), transparent 45%);background-attachment:fixed}
+
+/* Header */
+.logo{transition:transform .18s ease}
+.logo:hover{transform:translateY(-1px) scale(1.02)}
+.header-search input{transition:border-color .18s ease, box-shadow .18s ease}
+.header-search input:focus{box-shadow:0 0 0 4px var(--primary-glow)}
+.icon-btn{transition:background-color .15s ease, transform .15s ease}
+.icon-btn:hover{transform:rotate(12deg) scale(1.08)}
+.streak-pill{position:relative;overflow:hidden}
+.streak-pill b{position:relative}
+@keyframes streakGlow{0%,100%{box-shadow:0 0 0 0 rgba(255,200,87,.0)}50%{box-shadow:0 0 14px 1px rgba(255,200,87,.35)}}
+.streak-pill.has-streak{animation:streakGlow 2.6s ease-in-out infinite;border-color:rgba(255,200,87,.4)}
+
+/* Buttons */
+.btn-primary{
+  background:linear-gradient(135deg,var(--primary-color),var(--primary-hover));
+  box-shadow:0 2px 10px -2px var(--primary-glow);
+  transform:translateY(0);
+}
+.btn-primary:hover{
+  background:linear-gradient(135deg,var(--primary-hover),var(--primary-color));
+  transform:translateY(-1px);
+  box-shadow:0 6px 18px -4px var(--primary-glow);
+}
+.btn-primary:active{transform:translateY(0) scale(.97)}
+.btn-ghost{transition:all .15s ease}
+.btn-ghost:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+
+/* Sidebar overview card */
+.sidebar-overview{
+  background:linear-gradient(155deg, var(--surface-color), var(--surface-hover));
+  position:relative;overflow:hidden;
+}
+.sidebar-overview::before{
+  content:"";position:absolute;top:-40%;right:-30%;width:160px;height:160px;border-radius:50%;
+  background:radial-gradient(circle, var(--primary-glow), transparent 70%);pointer-events:none;
+}
+#ringFill{transition:stroke-dashoffset .6s cubic-bezier(.34,1.56,.64,1)}
+.ring-stat b{background:linear-gradient(135deg,var(--primary-color),var(--accent-2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.mini-diff-row .fill{transition:width .5s cubic-bezier(.34,1.56,.64,1)}
+
+/* Step nav */
+.step-nav-item{position:relative}
+.step-nav-item::before{
+  content:"";position:absolute;left:0;top:8%;bottom:8%;width:3px;border-radius:3px;
+  background:var(--primary-color);transform:scaleY(0);transition:transform .15s ease;
+}
+.step-nav-item:hover::before,.step-nav-item.active::before{transform:scaleY(1)}
+.step-nav-item{transition:transform .15s ease}
+.step-nav-item:hover{transform:translateX(2px)}
+.step-nav-item.done .step-nav-num{box-shadow:0 0 0 3px color-mix(in srgb, var(--revision-color) 20%, transparent)}
+
+/* Dashboard stat cards */
+.stat-card{
+  transition:transform .2s cubic-bezier(.2,.9,.3,1.2), box-shadow .2s ease, border-color .2s ease;
+}
+.stat-card::before{
+  content:"";position:absolute;inset:0 0 auto 0;height:3px;
+  background:linear-gradient(90deg,var(--primary-color),var(--accent-2));
+  opacity:0;transition:opacity .2s ease;
+}
+.stat-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:transparent}
+.stat-card:hover::before{opacity:1}
+.stat-card.accent-easy::before{background:linear-gradient(90deg,var(--revision-color),#9df5d3)}
+.stat-card.accent-medium::before{background:linear-gradient(90deg,var(--warning-color),#ffe08a)}
+.stat-card.accent-hard::before{background:linear-gradient(90deg,var(--danger-color),#ffb3b3)}
+.stat-card .stat-value{transition:color .2s ease}
+.stat-card .bar-fill{
+  background:linear-gradient(90deg,var(--primary-color),var(--accent-2));
+  transition:width .6s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden;
+}
+@keyframes barShine{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
+.stat-card .bar{position:relative;overflow:hidden}
+.stat-card .bar-fill::after{
+  content:"";position:absolute;inset:0;width:40%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
+  animation:barShine 2.4s ease-in-out infinite;
+}
+[data-theme=light] .stat-card .bar-fill::after{background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent)}
+
+/* Toolbar segment control */
+.seg button{transition:all .15s ease}
+.seg button.active{box-shadow:0 2px 8px -2px var(--primary-glow)}
+.select-pill{transition:border-color .15s ease}
+.select-pill:hover{border-color:var(--primary-color)}
+
+/* Step sections */
+.step-section{animation:riseIn .35s ease both}
+@keyframes riseIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.step-header{transition:transform .18s ease, box-shadow .18s ease, background .15s ease}
+.step-header:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+.step-header .step-badge{transition:transform .3s cubic-bezier(.34,1.56,.64,1), background .2s ease}
+.step-header.done .step-badge{animation:badgePop .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes badgePop{0%{transform:scale(.5)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.step-header .step-track-fill{
+  background:linear-gradient(90deg,var(--primary-color),var(--revision-color));
+  transition:width .5s cubic-bezier(.34,1.56,.64,1);
+}
+.step-header.done .step-track-fill{background:linear-gradient(90deg,var(--revision-color),#9df5d3)}
+
+/* Topic rows */
+.topic-row{position:relative;border-left:3px solid transparent}
+.topic-row:hover{border-left-color:var(--primary-color);transform:translateX(1px)}
+.topic-row.solved{border-left-color:var(--revision-color)}
+.chk{transition:transform .15s cubic-bezier(.34,1.56,.64,1), background-color .15s ease, border-color .15s ease}
+.chk:hover{transform:scale(1.12)}
+.chk.checked{animation:chkPop .35s cubic-bezier(.34,1.56,.64,1);box-shadow:0 0 0 4px color-mix(in srgb, var(--revision-color) 22%, transparent)}
+@keyframes chkPop{0%{transform:scale(.7)}55%{transform:scale(1.25)}100%{transform:scale(1)}}
+.topic-title{transition:color .15s ease}
+.diff-badge{transition:transform .15s ease}
+.topic-row:hover .diff-badge{transform:translateY(-1px)}
+.res-links button.starred{animation:starPop .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes starPop{0%{transform:scale(.6) rotate(-15deg)}60%{transform:scale(1.25) rotate(8deg)}100%{transform:scale(1) rotate(0)}}
+.res-links a,.res-links button{transition:transform .15s ease, background-color .15s ease, color .15s ease}
+.res-links a:hover,.res-links button:hover{transform:translateY(-1px) scale(1.06)}
+
+/* Toast */
+.toast{border-left:3px solid var(--revision-color)}
+
+/* Milestone celebration banner */
+.milestone-toast{
+  position:fixed;top:1.1rem;left:50%;transform:translateX(-50%) translateY(-14px);
+  background:linear-gradient(135deg,var(--primary-color),var(--accent-2));color:#fff;
+  padding:.7rem 1.3rem;border-radius:12px;font-weight:700;font-size:.85rem;
+  box-shadow:0 12px 30px -8px var(--primary-glow);opacity:0;pointer-events:none;
+  transition:all .35s cubic-bezier(.34,1.56,.64,1);z-index:210;display:flex;align-items:center;gap:.5rem;
+}
+.milestone-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* Confetti */
+.confetti-piece{
+  position:fixed;top:0;left:0;width:8px;height:8px;pointer-events:none;z-index:220;
+  border-radius:2px;will-change:transform,opacity;
+}
+@keyframes confettiFall{
+  0%{opacity:1;transform:translate(var(--tx0),var(--ty0)) rotate(0deg)}
+  100%{opacity:0;transform:translate(var(--tx1),var(--ty1)) rotate(var(--rot))}
+}
 </style>
 </head>
-<body data-theme="dark">
+<body data-theme="light">
 
 <div id="skeletonScreen">
   <div class="sk-header">
@@ -636,7 +817,7 @@ button{font-family:inherit}
       </div>
     </div>
     <div class="header-right">
-      <div class="streak-pill" title="Topics marked to revise">
+      <div class="streak-pill" id="streakPill" title="Topics marked to revise">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 4-3 5-3 9a3 3 0 0 0 6 0c1 1 2 2 2 4a5 5 0 0 1-10 0c0-4 3-6 3-10 0-1 1-2 2-3z" fill="var(--warning-color)"/></svg>
         <b id="reviseCount">0</b><span class="long">&nbsp;to revise</span>
       </div>
@@ -682,6 +863,8 @@ button{font-family:inherit}
 
     <main class="main" id="mainArea">
       <div class="dashboard" id="dashboard"></div>
+
+      <div class="calendar-card" id="calendarCard"></div>
 
       <div class="toolbar">
         <div class="seg" id="statusSeg">
@@ -783,8 +966,8 @@ button{font-family:inherit}
   const totalTopics = allTopics.length;
 
   // ---------- State ----------
-  let state = { solved:{}, revise:{}, notes:{} };
-  let theme = 'dark';
+  let state = { solved:{}, revise:{}, notes:{}, activity:{}, solvedDates:{} };
+  let theme = 'light';
   let statusFilter = 'all';
   let diffFilter = 'all';
   let searchQ = '';
@@ -797,6 +980,13 @@ button{font-family:inherit}
 
   function debounce(fn, ms){
     let h; return (...a)=>{ clearTimeout(h); h=setTimeout(()=>fn(...a), ms); };
+  }
+  function todayStr(){ return dateStr(new Date()); }
+  function dateStr(d){
+    const y = d.getFullYear();
+    const m = String(d.getMonth()+1).padStart(2,'0');
+    const day = String(d.getDate()).padStart(2,'0');
+    return `${y}-${m}-${day}`;
   }
   function initials(name, email){
     const src = (name || email || '?').trim();
@@ -812,7 +1002,7 @@ button{font-family:inherit}
     return db.collection('progress').doc(uid);
   }
 
-  function emptyProgress(){ return { solved:{}, revise:{}, notes:{} }; }
+  function emptyProgress(){ return { solved:{}, revise:{}, notes:{}, activity:{}, solvedDates:{} }; }
 
   // preferCache=true tries the local IndexedDB cache first (near-instant,
   // works even if there's nothing cached yet — in which case it just
@@ -848,6 +1038,7 @@ button{font-family:inherit}
       if(JSON.stringify(fresh) !== JSON.stringify(state)){
         state = fresh;
         renderDashboard();
+        renderCalendar();
         renderStepNav();
         renderSteps();
       }
@@ -1190,6 +1381,53 @@ button{font-family:inherit}
     toastTimer = setTimeout(()=>el.classList.remove('show'), 1800);
   }
 
+  // ---------- Confetti burst (lightweight, no deps) ----------
+  const CONFETTI_COLORS = ['#7c8cff','#2dd4a7','#ff7ac6','#ffc857','#5b6cf0'];
+  function burstConfetti(x, y){
+    const count = 16;
+    for(let i=0;i<count;i++){
+      const el = document.createElement('span');
+      el.className = 'confetti-piece';
+      const angle = (Math.PI*2*i)/count + Math.random()*0.5;
+      const dist = 60 + Math.random()*60;
+      const tx1 = Math.cos(angle)*dist + 'px';
+      const ty1 = (Math.sin(angle)*dist + 40) + 'px';
+      el.style.setProperty('--tx0','0px');
+      el.style.setProperty('--ty0','0px');
+      el.style.setProperty('--tx1',tx1);
+      el.style.setProperty('--ty1',ty1);
+      el.style.setProperty('--rot', (Math.random()*360)+'deg');
+      el.style.left = x+'px';
+      el.style.top = y+'px';
+      el.style.background = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+      el.style.borderRadius = Math.random() > .5 ? '50%' : '2px';
+      el.style.animation = `confettiFall ${0.6 + Math.random()*0.4}s ease-out forwards`;
+      document.body.appendChild(el);
+      el.addEventListener('animationend', ()=>el.remove());
+    }
+  }
+
+  // ---------- Milestone celebration ----------
+  let lastMilestone = null;
+  function checkMilestone(pct){
+    const marks = [25,50,75,100];
+    if(lastMilestone === null){
+      // first render after load: don't celebrate progress that already existed
+      lastMilestone = marks.filter(m => pct >= m).slice(-1)[0] || 0;
+      return;
+    }
+    const hit = marks.find(m => pct >= m && lastMilestone < m);
+    if(!hit) { if(pct < 25) lastMilestone = 0; return; }
+    lastMilestone = hit;
+    const msgs = {25:'25% done — nice momentum! 🚀',50:'Halfway there! Keep going 💪',75:'75% complete — almost there! 🔥',100:'All solved! You crushed it! 🏆'};
+    const el = document.createElement('div');
+    el.className = 'milestone-toast';
+    el.textContent = msgs[hit];
+    document.body.appendChild(el);
+    requestAnimationFrame(()=>el.classList.add('show'));
+    setTimeout(()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(), 400); }, 2200);
+  }
+
   // ---------- Theme ----------
   function updateThemeIcon(){
     const icon = document.getElementById('themeIcon');
@@ -1233,7 +1471,7 @@ button{font-family:inherit}
   document.getElementById('resetBtn').addEventListener('click', ()=>{
     userDropdown.classList.remove('open');
     if(confirm('Reset all progress, revision flags and notes? This cannot be undone.')){
-      state = {solved:{}, revise:{}, notes:{}};
+      state = emptyProgress();
       persistState();
       render();
       showToast('Progress reset');
@@ -1329,7 +1567,9 @@ button{font-family:inherit}
     const reviseCount = Object.keys(state.revise).filter(id=>state.revise[id]).length;
 
     document.getElementById('reviseCount').textContent = reviseCount;
+    document.getElementById('streakPill').classList.toggle('has-streak', reviseCount > 0);
     document.getElementById('pctSolved').textContent = pct + '%';
+    checkMilestone(pct);
     document.getElementById('countSolved').textContent = `${solvedCount} / ${totalTopics} solved`;
     const ring = document.getElementById('ringFill');
     const circumference = 188.5;
@@ -1370,6 +1610,128 @@ button{font-family:inherit}
         <div class="stat-label">Hard</div>
         <div class="stat-value">${byDiff[2].s}/${byDiff[2].total}</div>
         <div class="stat-sub">${byDiff[2].total? Math.round(byDiff[2].s/byDiff[2].total*100):0}% complete</div>
+      </div>`;
+  }
+
+  // ---------- Submission calendar (LeetCode-style heatmap) ----------
+  function levelFor(count){
+    if(!count) return 0;
+    if(count === 1) return 1;
+    if(count <= 3) return 2;
+    if(count <= 5) return 3;
+    return 4;
+  }
+  function renderCalendar(){
+    const card = document.getElementById('calendarCard');
+    const activity = state.activity || {};
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    // Build a grid of weeks (columns) x 7 days (rows), ending on the
+    // current week, going back 52 full weeks (~1 year), Sun-start weeks.
+    const totalWeeks = 53;
+    const endDow = today.getDay(); // 0=Sun
+    const gridEnd = new Date(today);
+    gridEnd.setDate(gridEnd.getDate() + (6 - endDow)); // extend to end of this week (Sat)
+    const gridStart = new Date(gridEnd);
+    gridStart.setDate(gridStart.getDate() - (totalWeeks*7 - 1));
+
+    const weeks = [];
+    let cursor = new Date(gridStart);
+    for(let w=0; w<totalWeeks; w++){
+      const days = [];
+      for(let d=0; d<7; d++){
+        days.push(new Date(cursor));
+        cursor.setDate(cursor.getDate()+1);
+      }
+      weeks.push(days);
+    }
+
+    // Month labels: mark the week column where a new month begins.
+    const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const monthLabels = [];
+    let lastMonth = -1;
+    weeks.forEach((days, wi)=>{
+      const firstOfMonthDay = days.find(d=>d.getDate()===1);
+      const marker = firstOfMonthDay || (wi===0 ? days[0] : null);
+      if(marker && marker.getMonth() !== lastMonth){
+        monthLabels.push({ wi, label: monthNames[marker.getMonth()] });
+        lastMonth = marker.getMonth();
+      }
+    });
+
+    // Stats: total active days (within grid), current streak, max streak — computed
+    // from the full activity record so streaks aren't truncated by the visible window.
+    const activeDates = Object.keys(activity).filter(k=>activity[k] > 0).sort();
+    const activeSet = new Set(activeDates);
+    let totalInView = 0;
+    weeks.forEach(days=>days.forEach(d=>{ if(d<=today) totalInView += (activity[dateStr(d)]||0); }));
+
+    let maxStreak = 0, run = 0, prev = null;
+    activeDates.forEach(ds=>{
+      if(prev){
+        const p = new Date(prev+'T00:00:00');
+        const c = new Date(ds+'T00:00:00');
+        const diffDays = Math.round((c-p)/86400000);
+        run = diffDays === 1 ? run+1 : 1;
+      } else run = 1;
+      if(run > maxStreak) maxStreak = run;
+      prev = ds;
+    });
+
+    let currentStreak = 0;
+    let probe = new Date(today);
+    // allow the streak to count as "current" even if today has no activity yet
+    if(!activeSet.has(dateStr(probe))) probe.setDate(probe.getDate()-1);
+    while(activeSet.has(dateStr(probe))){
+      currentStreak++;
+      probe.setDate(probe.getDate()-1);
+    }
+
+    const dayCellsHtml = weeks.map(days=>{
+      const cells = days.map(d=>{
+        if(d > today) return `<span class="cal-day future"></span>`;
+        const ds = dateStr(d);
+        const count = activity[ds] || 0;
+        const lvl = levelFor(count);
+        const label = d.toLocaleDateString(undefined,{month:'short', day:'numeric', year:'numeric'});
+        const title = `${count} problem${count===1?'':'s'} solved on ${label}`;
+        return `<span class="cal-day ${lvl? 'lvl-'+lvl:''}" title="${escapeHtml(title)}"></span>`;
+      }).join('');
+      return `<div class="cal-week">${cells}</div>`;
+    }).join('');
+
+    const monthLabelsHtml = monthLabels.map(m=>{
+      const leftPx = m.wi * 14; // 11px cell + 3px gap
+      return `<span class="cal-month-lbl" style="left:${leftPx}px">${m.label}</span>`;
+    }).join('');
+
+    card.innerHTML = `
+      <div class="cal-head">
+        <div class="cal-title"><b>${totalInView}</b> submissions in the past year</div>
+        <div class="cal-stats">
+          <span class="cal-stat">Total active days: <b>${activeDates.length}</b></span>
+          <span class="cal-stat">Current streak: <b>${currentStreak}</b></span>
+          <span class="cal-stat">Max streak: <b>${maxStreak}</b></span>
+        </div>
+      </div>
+      <div class="cal-scroll">
+        <div class="cal-inner">
+          <div class="cal-months">${monthLabelsHtml}</div>
+          <div class="cal-body">
+            <div class="cal-daylabels"><span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span></div>
+            <div class="cal-weeks">${dayCellsHtml}</div>
+          </div>
+        </div>
+      </div>
+      <div class="cal-legend">
+        Less
+        <span class="cal-day"></span>
+        <span class="cal-day lvl-1"></span>
+        <span class="cal-day lvl-2"></span>
+        <span class="cal-day lvl-3"></span>
+        <span class="cal-day lvl-4"></span>
+        More
       </div>`;
   }
 
@@ -1461,10 +1823,25 @@ button{font-family:inherit}
 
     if(act === 'toggle-solve'){
       state.solved[id] = !state.solved[id];
+      if(state.solved[id]){
+        const today = todayStr();
+        state.solvedDates[id] = today;
+        state.activity[today] = (state.activity[today] || 0) + 1;
+        const r = actBtn.getBoundingClientRect();
+        burstConfetti(r.left + r.width/2, r.top + r.height/2);
+      } else {
+        const d = state.solvedDates[id];
+        if(d){
+          state.activity[d] = (state.activity[d] || 1) - 1;
+          if(state.activity[d] <= 0) delete state.activity[d];
+          delete state.solvedDates[id];
+        }
+      }
       persistState();
       renderDashboard();
       renderStepNav();
       renderSteps();
+      renderCalendar();
     } else if(act === 'revise'){
       state.revise[id] = !state.revise[id];
       persistState();
@@ -1508,6 +1885,7 @@ button{font-family:inherit}
   // ---------- Render all ----------
   function render(){
     renderDashboard();
+    renderCalendar();
     renderStepNav();
     renderSteps();
   }
