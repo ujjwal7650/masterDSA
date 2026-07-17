@@ -31,25 +31,25 @@
   --header-height:64px;
 }
 [data-theme=light]{
-  --bg-color:#ffffff;
+  --bg-color:#f6f7fb;
   --surface-color:#ffffff;
-  --surface-hover:#f5f6f8;
+  --surface-hover:#f0f2fa;
   --surface-raised:#ffffff;
-  --text-primary:#1a1d24;
-  --text-secondary:#6b7280;
-  --border-color:#e5e7eb;
-  --primary-color:#2563eb;
-  --primary-hover:#1d4ed8;
-  --primary-glow:rgba(37,99,235,.16);
-  --danger-color:#dc2626;
-  --warning-color:#d97706;
-  --revision-color:#059669;
-  --accent-2:#2563eb;
-  --shadow-sm:0 1px 2px 0 rgb(0 0 0 / .04);
-  --shadow-md:0 6px 16px -4px rgb(0 0 0 / .08);
-  --shadow-lg:0 16px 36px -10px rgb(0 0 0 / .12);
-  --glass-bg:rgba(255,255,255,.9);
-  --glass-border:rgba(0,0,0,.05);
+  --text-primary:#161a2b;
+  --text-secondary:#666f8a;
+  --border-color:#e6e8f2;
+  --primary-color:#5b5ff5;
+  --primary-hover:#4749d6;
+  --primary-glow:rgba(91,95,245,.22);
+  --danger-color:#ef4444;
+  --warning-color:#e08a00;
+  --revision-color:#0fa87a;
+  --accent-2:#e0459f;
+  --shadow-sm:0 1px 3px 0 rgb(20 20 60 / .06);
+  --shadow-md:0 10px 24px -6px rgb(20 20 60 / .1);
+  --shadow-lg:0 24px 48px -12px rgb(20 20 60 / .16);
+  --glass-bg:rgba(255,255,255,.85);
+  --glass-border:rgba(20,20,60,.06);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -686,7 +686,7 @@ body{background-image:radial-gradient(circle at 15% -10%, color-mix(in srgb, var
 }
 </style>
 </head>
-<body data-theme="light">
+<body data-theme="dark">
 
 <div id="skeletonScreen">
   <div class="sk-header">
@@ -967,7 +967,7 @@ body{background-image:radial-gradient(circle at 15% -10%, color-mix(in srgb, var
 
   // ---------- State ----------
   let state = { solved:{}, revise:{}, notes:{}, activity:{}, solvedDates:{} };
-  let theme = 'light';
+  let theme = 'dark';
   let statusFilter = 'all';
   let diffFilter = 'all';
   let searchQ = '';
