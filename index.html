@@ -338,6 +338,101 @@ button{font-family:inherit}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast svg{color:var(--revision-color);flex-shrink:0}
 
+/* ---------- Accessibility & polish ---------- */
+:focus-visible{outline:2px solid var(--primary-color);outline-offset:2px;border-radius:4px}
+.chk:focus-visible{outline-offset:3px}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+}
+.stat-card{transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease}
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:color-mix(in srgb, var(--primary-color) 30%, var(--border-color))}
+.header-right .icon-btn{position:relative}
+.header-right .icon-btn[title]:hover::after{
+  content:attr(title);position:absolute;top:calc(100% + 8px);right:0;background:var(--surface-raised);
+  border:1px solid var(--border-color);color:var(--text-primary);font-size:.7rem;font-weight:600;
+  padding:.3rem .55rem;border-radius:7px;white-space:nowrap;box-shadow:var(--shadow-md);pointer-events:none;
+  z-index:80;animation:tipIn .12s ease;
+}
+@keyframes tipIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+
+/* ---------- Weekly velocity sparkline ---------- */
+.cal-velocity{display:flex;align-items:center;gap:.9rem;margin-top:.85rem;padding-top:.8rem;border-top:1px solid var(--border-color)}
+.cal-velocity-label{font-size:.7rem;color:var(--text-secondary);font-weight:700;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+.cal-velocity-bars{display:flex;align-items:flex-end;gap:4px;height:34px;flex:1}
+.cal-velocity-bar{flex:1;min-width:6px;background:color-mix(in srgb, var(--primary-color) 55%, transparent);border-radius:3px 3px 1px 1px;transition:transform .12s ease, background .12s ease;cursor:default}
+.cal-velocity-bar:hover{background:var(--primary-color);transform:scaleY(1.04)}
+.cal-velocity-bar.empty{background:var(--border-color)}
+
+/* ---------- Share progress card ---------- */
+.share-card-wrap{display:flex;justify-content:center;padding:.2rem 0 .4rem}
+.share-card{
+  width:100%;max-width:380px;border-radius:18px;padding:1.5rem;position:relative;overflow:hidden;
+  background:linear-gradient(155deg,#0b0e14 0%,#141a2b 55%,#0e1524 100%);color:#eef1f8;
+  border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow-lg);
+}
+.share-card::before{
+  content:'';position:absolute;top:-40%;right:-30%;width:70%;height:140%;
+  background:radial-gradient(circle, rgba(124,140,255,.28), transparent 65%);pointer-events:none;
+}
+.share-card::after{
+  content:'';position:absolute;bottom:-40%;left:-20%;width:60%;height:120%;
+  background:radial-gradient(circle, rgba(45,212,167,.18), transparent 65%);pointer-events:none;
+}
+.share-card-top{display:flex;align-items:center;gap:.6rem;position:relative;z-index:1}
+.share-card-avatar{
+  width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#34d399,#059669);
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;color:#04170c;flex-shrink:0;
+}
+.share-card-brand{font-size:.72rem;font-weight:700;color:#8b93a7;letter-spacing:.03em}
+.share-card-name{font-size:.95rem;font-weight:800}
+.share-card-pct{font-size:3.1rem;font-weight:800;letter-spacing:-.03em;margin:1.1rem 0 .1rem;position:relative;z-index:1}
+.share-card-sub{font-size:.82rem;color:#8b93a7;position:relative;z-index:1;margin-bottom:1.1rem}
+.share-card-row{display:flex;gap:.5rem;position:relative;z-index:1}
+.share-card-chip{
+  flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;
+  padding:.55rem .6rem;text-align:center;
+}
+.share-card-chip b{display:block;font-size:1.05rem;font-weight:800}
+.share-card-chip span{font-size:.65rem;color:#8b93a7;text-transform:uppercase;letter-spacing:.04em;font-weight:700}
+.share-card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:1.1rem;position:relative;z-index:1}
+.share-card-foot .streak-flame{display:flex;align-items:center;gap:.3rem;font-size:.78rem;font-weight:700;color:#ffc857}
+.share-card-foot .datestamp{font-size:.68rem;color:#5f6684}
+.share-actions{display:flex;gap:.6rem;padding:0 1.2rem 1.2rem}
+.share-actions button{flex:1}
+.share-privacy-note{font-size:.72rem;color:var(--text-secondary);padding:0 1.2rem 1rem;line-height:1.5}
+
+/* ---------- Leaderboard ---------- */
+.lb-toggle-row{
+  display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.9rem 1.2rem;
+  border-bottom:1px solid var(--border-color);
+}
+.lb-toggle-copy{font-size:.78rem;color:var(--text-secondary);line-height:1.4}
+.lb-toggle-copy b{color:var(--text-primary);display:block;font-size:.85rem;margin-bottom:.15rem}
+.switch{position:relative;width:40px;height:23px;flex-shrink:0}
+.switch input{opacity:0;width:0;height:0}
+.switch-track{
+  position:absolute;inset:0;background:var(--border-color);border-radius:999px;cursor:pointer;transition:background .18s ease;
+}
+.switch-track::before{
+  content:'';position:absolute;width:17px;height:17px;left:3px;top:3px;background:#fff;border-radius:50%;
+  transition:transform .18s ease;box-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+.switch input:checked + .switch-track{background:var(--revision-color)}
+.switch input:checked + .switch-track::before{transform:translateX(17px)}
+.lb-list{max-height:360px;overflow-y:auto;padding:.5rem}
+.lb-row{display:flex;align-items:center;gap:.7rem;padding:.6rem .7rem;border-radius:10px;transition:background .12s}
+.lb-row:hover{background:var(--surface-hover)}
+.lb-row.me{background:color-mix(in srgb, var(--primary-color) 10%, transparent);border:1px solid color-mix(in srgb, var(--primary-color) 30%, var(--border-color))}
+.lb-rank{width:22px;text-align:center;font-weight:800;font-size:.8rem;color:var(--text-secondary);flex-shrink:0}
+.lb-rank.top1{color:#ffc857}
+.lb-rank.top2{color:#c9ccd8}
+.lb-rank.top3{color:#e0a15c}
+.lb-avatar{width:32px;height:32px;border-radius:9px;background:var(--surface-hover);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.72rem;flex-shrink:0}
+.lb-name{flex:1;min-width:0;font-size:.83rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb-pct{font-size:.82rem;font-weight:800;color:var(--primary-color);white-space:nowrap}
+.lb-empty{padding:2rem 1.2rem;text-align:center;color:var(--text-secondary);font-size:.85rem}
+.lb-loading{padding:2rem 1.2rem;text-align:center;color:var(--text-secondary);font-size:.85rem}
+
 @media (max-width:1050px){
   #supportBtn{padding:.5rem .6rem;font-size:.76rem}
 }
@@ -822,7 +917,13 @@ body{background-image:radial-gradient(circle at 15% -10%, color-mix(in srgb, var
         <b id="reviseCount">0</b><span class="long">&nbsp;to revise</span>
       </div>
       <a class="btn-ghost" id="supportBtn" href="https://www.chai4.me/ujjwalgupta" target="_blank" rel="noopener" title="Support the developer" style="text-decoration:none;white-space:nowrap">Support Developer</a>
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">
+      <button class="icon-btn" id="leaderboardBtn" title="Leaderboard" aria-label="Open leaderboard">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 5H4a2 2 0 0 0 0 6h1M17 5h3a2 2 0 0 1 0 6h-1"/></svg>
+      </button>
+      <button class="icon-btn" id="shareBtn" title="Share progress" aria-label="Share progress card">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+      </button>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light and dark theme">
         <svg id="themeIcon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
       </button>
       <button class="btn-signin" id="signInBtn" style="display:none">
@@ -833,6 +934,13 @@ body{background-image:radial-gradient(circle at 15% -10%, color-mix(in srgb, var
         <button class="user-avatar" id="userAvatarBtn">?</button>
         <div class="user-dropdown" id="userDropdown">
           <div class="who"><b id="userDropdownName">Guest</b><span id="userDropdownEmail">Not signed in</span></div>
+          <div class="lb-toggle-row" style="padding:.7rem 0;border:none">
+            <div class="lb-toggle-copy"><b>Show on leaderboard</b>Share your solved % publicly, ranked by name</div>
+            <label class="switch">
+              <input type="checkbox" id="lbOptInToggle"/>
+              <span class="switch-track"></span>
+            </label>
+          </div>
           <button id="resetBtn">Reset progress</button>
           <button id="switchAccountBtn">Switch account</button>
           <button class="danger" id="signOutBtn" style="display:none">Sign out</button>
@@ -898,7 +1006,7 @@ body{background-image:radial-gradient(circle at 15% -10%, color-mix(in srgb, var
   <div class="modal">
     <div class="modal-head">
       <h3 id="noteModalTitle">Note</h3>
-      <button id="noteCloseBtn">
+      <button id="noteCloseBtn" aria-label="Close note">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
@@ -908,6 +1016,60 @@ body{background-image:radial-gradient(circle at 15% -10%, color-mix(in srgb, var
     <div class="modal-foot">
       <button class="btn-ghost" id="noteCancelBtn">Cancel</button>
       <button class="btn-primary" id="noteSaveBtn">Save note</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="shareBackdrop">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-head">
+      <h3>Share your progress</h3>
+      <button id="shareCloseBtn" aria-label="Close share dialog">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" style="padding-bottom:.4rem">
+      <div class="share-card-wrap">
+        <div class="share-card" id="shareCardEl">
+          <div class="share-card-top">
+            <div class="share-card-avatar" id="shareCardAvatar">?</div>
+            <div>
+              <div class="share-card-name" id="shareCardName">Guest</div>
+              <div class="share-card-brand">Master DSA Tracker</div>
+            </div>
+          </div>
+          <div class="share-card-pct" id="shareCardPct">0%</div>
+          <div class="share-card-sub" id="shareCardSub">0 / 0 problems solved</div>
+          <div class="share-card-row">
+            <div class="share-card-chip"><b id="shareCardEasy">0</b><span>Easy</span></div>
+            <div class="share-card-chip"><b id="shareCardMedium">0</b><span>Medium</span></div>
+            <div class="share-card-chip"><b id="shareCardHard">0</b><span>Hard</span></div>
+          </div>
+          <div class="share-card-foot">
+            <div class="streak-flame" id="shareCardStreak">🔥 0 day streak</div>
+            <div class="datestamp" id="shareCardDate"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="share-actions">
+      <button class="btn-ghost" id="shareDownloadBtn">Download PNG</button>
+      <button class="btn-primary" id="shareNativeBtn">Share</button>
+    </div>
+    <p class="share-privacy-note">Only what's shown on the card (name, %, streak) is included — your notes and links stay private.</p>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="lbBackdrop">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-head">
+      <h3>Leaderboard</h3>
+      <button id="lbCloseBtn" aria-label="Close leaderboard">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="lb-list" id="lbList">
+      <div class="lb-loading">Loading leaderboard…</div>
     </div>
   </div>
 </div>
@@ -996,13 +1158,38 @@ body{background-image:radial-gradient(circle at 15% -10%, color-mix(in srgb, var
     return src.slice(0,2).toUpperCase();
   }
 
+  // Shared by the dashboard, share card, and leaderboard so the three
+  // never disagree about what "solved" and "% complete" mean.
+  function computeStats(){
+    const solvedCount = Object.keys(state.solved).filter(id=>state.solved[id]).length;
+    const byDiff = {0:{s:0,total:0},1:{s:0,total:0},2:{s:0,total:0}};
+    allTopics.forEach(t=>{
+      byDiff[t.d].total++;
+      if(state.solved[t.id]) byDiff[t.d].s++;
+    });
+    const pct = totalTopics ? Math.round((solvedCount/totalTopics)*100) : 0;
+    return { solvedCount, totalTopics, byDiff, pct };
+  }
+
   // Progress is stored in Firestore, one document per signed-in user:
   //   collection "progress", doc id = user.uid
   function progressDocRef(uid){
     return db.collection('progress').doc(uid);
   }
 
-  function emptyProgress(){ return { solved:{}, revise:{}, notes:{}, activity:{}, solvedDates:{} }; }
+  // Public leaderboard entries live in their own collection so the security
+  // rules can keep full progress/notes private while still letting anyone
+  // read the opted-in summary stats. Requires a Firestore rule along the
+  // lines of:
+  //   match /leaderboard/{uid} {
+  //     allow read: if true;
+  //     allow write: if request.auth != null && request.auth.uid == uid;
+  //   }
+  function leaderboardDocRef(uid){
+    return db.collection('leaderboard').doc(uid);
+  }
+
+  function emptyProgress(){ return { solved:{}, revise:{}, notes:{}, activity:{}, solvedDates:{}, lbOptIn:false }; }
 
   // preferCache=true tries the local IndexedDB cache first (near-instant,
   // works even if there's nothing cached yet — in which case it just
@@ -1058,7 +1245,30 @@ body{background-image:radial-gradient(circle at 15% -10%, color-mix(in srgb, var
     if(!currentUser) return;
     try{ await progressDocRef(currentUser.uid).set(state, { merge:false }); }
     catch(e){ console.error('save failed', e); }
+    syncLeaderboardEntry();
   }, 350);
+
+  // Mirrors a small public summary to the leaderboard collection when the
+  // person has opted in, and removes it the moment they opt out. Every
+  // call is wrapped so a missing/misconfigured Firestore collection never
+  // breaks progress saving — the leaderboard is a bonus, not a dependency.
+  async function syncLeaderboardEntry(){
+    if(!currentUser || currentUser.isAnonymous) return;
+    try{
+      if(state.lbOptIn){
+        const { solvedCount, pct } = computeStats();
+        await leaderboardDocRef(currentUser.uid).set({
+          name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Anonymous'),
+          solved: solvedCount,
+          total: totalTopics,
+          pct,
+          updatedAt: Date.now()
+        });
+      } else {
+        await leaderboardDocRef(currentUser.uid).delete();
+      }
+    }catch(e){ /* leaderboard collection/rules not set up yet — fail silently */ }
+  }
 
   function persistTheme(){
     try{ localStorage.setItem(THEME_KEY, theme); }catch(e){}
@@ -1161,6 +1371,8 @@ body{background-image:radial-gradient(circle at 15% -10%, color-mix(in srgb, var
       switchBtn.textContent = 'Switch account';
       userMenu.style.display = '';
       signInBtn.style.display = 'none';
+      const lbToggle = document.getElementById('lbOptInToggle');
+      if(lbToggle) lbToggle.checked = !!state.lbOptIn;
     } else {
       avatarBtn.textContent = 'G';
       nameEl.textContent = 'Guest';
@@ -1369,6 +1581,194 @@ body{background-image:radial-gradient(circle at 15% -10%, color-mix(in srgb, var
     userDropdown.classList.remove('open');
     await auth.signOut();
   });
+
+  // ---------- Leaderboard opt-in ----------
+  document.getElementById('lbOptInToggle').addEventListener('change', e=>{
+    if(!currentUser || currentUser.isAnonymous){
+      e.target.checked = false;
+      showToast('Sign in to join the leaderboard');
+      return;
+    }
+    state.lbOptIn = e.target.checked;
+    persistState();
+    showToast(state.lbOptIn ? 'Added to the leaderboard' : 'Removed from the leaderboard');
+  });
+
+  // ---------- Share progress card ----------
+  const shareBackdrop = document.getElementById('shareBackdrop');
+  function openShareModal(){
+    if(!currentUser || currentUser.isAnonymous){ showToast('Sign in to share your progress'); return; }
+    const { solvedCount, byDiff, pct } = computeStats();
+    const streaks = window.__dsaStreaks || { currentStreak:0 };
+    const displayName = currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Guest');
+    document.getElementById('shareCardAvatar').textContent = initials(currentUser.displayName, currentUser.email);
+    document.getElementById('shareCardName').textContent = displayName;
+    document.getElementById('shareCardPct').textContent = pct + '%';
+    document.getElementById('shareCardSub').textContent = `${solvedCount} / ${totalTopics} problems solved`;
+    document.getElementById('shareCardEasy').textContent = byDiff[0].s;
+    document.getElementById('shareCardMedium').textContent = byDiff[1].s;
+    document.getElementById('shareCardHard').textContent = byDiff[2].s;
+    document.getElementById('shareCardStreak').textContent = `🔥 ${streaks.currentStreak} day streak`;
+    document.getElementById('shareCardDate').textContent = new Date().toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+    shareBackdrop.classList.add('open');
+  }
+  function closeShareModal(){ shareBackdrop.classList.remove('open'); }
+  document.getElementById('shareBtn').addEventListener('click', openShareModal);
+  document.getElementById('shareCloseBtn').addEventListener('click', closeShareModal);
+  shareBackdrop.addEventListener('click', e=>{ if(e.target === shareBackdrop) closeShareModal(); });
+
+  // Draws the share card straight to a canvas (rather than rasterizing the
+  // live DOM node) so the exported PNG is crisp and has zero dependency on
+  // html2canvas or similar libraries.
+  function renderShareCanvas(){
+    const scale = 2;
+    const W = 380*scale, H = 400*scale;
+    const canvas = document.createElement('canvas');
+    canvas.width = W; canvas.height = H;
+    const ctx = canvas.getContext('2d');
+
+    const bg = ctx.createLinearGradient(0,0,W,H);
+    bg.addColorStop(0,'#0b0e14'); bg.addColorStop(.55,'#141a2b'); bg.addColorStop(1,'#0e1524');
+    roundRect(ctx,0,0,W,H,18*scale); ctx.fillStyle = bg; ctx.fill();
+
+    const glow1 = ctx.createRadialGradient(W*0.85,H*0.05,0,W*0.85,H*0.05,W*0.55);
+    glow1.addColorStop(0,'rgba(124,140,255,.30)'); glow1.addColorStop(1,'rgba(124,140,255,0)');
+    ctx.fillStyle = glow1; ctx.fillRect(0,0,W,H);
+    const glow2 = ctx.createRadialGradient(W*0.1,H*0.95,0,W*0.1,H*0.95,W*0.5);
+    glow2.addColorStop(0,'rgba(45,212,167,.20)'); glow2.addColorStop(1,'rgba(45,212,167,0)');
+    ctx.fillStyle = glow2; ctx.fillRect(0,0,W,H);
+
+    const pad = 30*scale;
+    // Avatar
+    const avR = 19*scale;
+    const avX = pad+avR, avY = pad+30*scale;
+    const avGrad = ctx.createLinearGradient(avX-avR,avY-avR,avX+avR,avY+avR);
+    avGrad.addColorStop(0,'#34d399'); avGrad.addColorStop(1,'#059669');
+    roundRect(ctx, avX-avR, avY-avR, avR*2, avR*2, 11*scale); ctx.fillStyle = avGrad; ctx.fill();
+    ctx.fillStyle = '#04170c'; ctx.font = `800 ${13*scale}px Inter, system-ui, sans-serif`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(document.getElementById('shareCardAvatar').textContent, avX, avY+1);
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#eef1f8'; ctx.font = `800 ${15*scale}px Inter, system-ui, sans-serif`;
+    ctx.fillText(document.getElementById('shareCardName').textContent, avX+avR+12*scale, avY-6*scale);
+    ctx.fillStyle = '#8b93a7'; ctx.font = `700 ${11*scale}px Inter, system-ui, sans-serif`;
+    ctx.fillText('Master DSA Tracker', avX+avR+12*scale, avY+12*scale);
+
+    // Big percentage
+    ctx.fillStyle = '#eef1f8'; ctx.font = `800 ${50*scale}px Inter, system-ui, sans-serif`;
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText(document.getElementById('shareCardPct').textContent, pad, pad+130*scale);
+    ctx.fillStyle = '#8b93a7'; ctx.font = `600 ${13*scale}px Inter, system-ui, sans-serif`;
+    ctx.fillText(document.getElementById('shareCardSub').textContent, pad, pad+152*scale);
+
+    // Difficulty chips
+    const chipY = pad+172*scale, chipH = 46*scale, chipW = (W-2*pad-2*10*scale)/3;
+    const chips = [
+      [document.getElementById('shareCardEasy').textContent, 'EASY'],
+      [document.getElementById('shareCardMedium').textContent, 'MEDIUM'],
+      [document.getElementById('shareCardHard').textContent, 'HARD']
+    ];
+    chips.forEach((c,i)=>{
+      const cx = pad + i*(chipW+10*scale);
+      roundRect(ctx, cx, chipY, chipW, chipH, 10*scale);
+      ctx.fillStyle = 'rgba(255,255,255,.05)'; ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,.08)'; ctx.lineWidth = scale; ctx.stroke();
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#eef1f8'; ctx.font = `800 ${16*scale}px Inter, system-ui, sans-serif`;
+      ctx.fillText(c[0], cx+chipW/2, chipY+20*scale);
+      ctx.fillStyle = '#8b93a7'; ctx.font = `700 ${9*scale}px Inter, system-ui, sans-serif`;
+      ctx.fillText(c[1], cx+chipW/2, chipY+34*scale);
+      ctx.textAlign = 'left';
+    });
+
+    // Footer
+    const footY = chipY+chipH+34*scale;
+    ctx.fillStyle = '#ffc857'; ctx.font = `700 ${13*scale}px Inter, system-ui, sans-serif`;
+    ctx.fillText(document.getElementById('shareCardStreak').textContent, pad, footY);
+    ctx.fillStyle = '#5f6684'; ctx.font = `600 ${11*scale}px Inter, system-ui, sans-serif`;
+    ctx.textAlign = 'right';
+    ctx.fillText(document.getElementById('shareCardDate').textContent, W-pad, footY);
+
+    return canvas;
+  }
+  function roundRect(ctx,x,y,w,h,r){
+    ctx.beginPath();
+    ctx.moveTo(x+r,y);
+    ctx.arcTo(x+w,y,x+w,y+h,r);
+    ctx.arcTo(x+w,y+h,x,y+h,r);
+    ctx.arcTo(x,y+h,x,y,r);
+    ctx.arcTo(x,y,x+w,y,r);
+    ctx.closePath();
+  }
+  document.getElementById('shareDownloadBtn').addEventListener('click', ()=>{
+    const canvas = renderShareCanvas();
+    canvas.toBlob(blob=>{
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'dsa-progress.png';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 2000);
+      showToast('Progress card downloaded');
+    });
+  });
+  document.getElementById('shareNativeBtn').addEventListener('click', async ()=>{
+    const canvas = renderShareCanvas();
+    const pct = document.getElementById('shareCardPct').textContent;
+    const shareText = `I've solved ${document.getElementById('shareCardSub').textContent} (${pct}) on Master DSA Tracker 🚀`;
+    canvas.toBlob(async blob=>{
+      const file = new File([blob], 'dsa-progress.png', { type:'image/png' });
+      try{
+        if(navigator.canShare && navigator.canShare({ files:[file] })){
+          await navigator.share({ files:[file], text: shareText, title:'My DSA progress' });
+          return;
+        }
+      }catch(e){ /* user cancelled or share failed — fall through to text share */ }
+      try{
+        if(navigator.share){ await navigator.share({ text: shareText }); return; }
+      }catch(e){ /* fall through to clipboard */ }
+      try{
+        await navigator.clipboard.writeText(shareText);
+        showToast('Copied progress summary to clipboard');
+      }catch(e){ showToast('Use the Download button to save your card'); }
+    });
+  });
+
+  // ---------- Leaderboard ----------
+  const lbBackdrop = document.getElementById('lbBackdrop');
+  async function openLeaderboard(){
+    lbBackdrop.classList.add('open');
+    const list = document.getElementById('lbList');
+    list.innerHTML = '<div class="lb-loading">Loading leaderboard…</div>';
+    try{
+      const snap = await db.collection('leaderboard').orderBy('pct','desc').limit(50).get();
+      if(snap.empty){
+        list.innerHTML = '<div class="lb-empty">No one\u2019s on the board yet — turn on \u201cShow on leaderboard\u201d in your profile menu to be the first.</div>';
+        return;
+      }
+      let rank = 0;
+      const rows = [];
+      snap.forEach(doc=>{
+        rank++;
+        const d = doc.data();
+        const isMe = currentUser && doc.id === currentUser.uid;
+        const rankClass = rank===1?'top1':rank===2?'top2':rank===3?'top3':'';
+        rows.push(`<div class="lb-row ${isMe?'me':''}">
+          <span class="lb-rank ${rankClass}">${rank}</span>
+          <span class="lb-avatar">${initials(d.name,'')}</span>
+          <span class="lb-name">${escapeHtml(d.name||'Anonymous')}${isMe?' (you)':''}</span>
+          <span class="lb-pct">${d.pct||0}%</span>
+        </div>`);
+      });
+      list.innerHTML = rows.join('');
+    }catch(e){
+      list.innerHTML = '<div class="lb-empty">The leaderboard isn\u2019t set up on this deployment yet — it needs a public <code>leaderboard</code> collection enabled in Firestore.</div>';
+    }
+  }
+  function closeLeaderboard(){ lbBackdrop.classList.remove('open'); }
+  document.getElementById('leaderboardBtn').addEventListener('click', openLeaderboard);
+  document.getElementById('lbCloseBtn').addEventListener('click', closeLeaderboard);
+  lbBackdrop.addEventListener('click', e=>{ if(e.target === lbBackdrop) closeLeaderboard(); });
 
 
   // ---------- Toast ----------
@@ -1687,6 +2087,9 @@ body{background-image:radial-gradient(circle at 15% -10%, color-mix(in srgb, var
       currentStreak++;
       probe.setDate(probe.getDate()-1);
     }
+    // Cache the latest streak numbers so other views (like the share card)
+    // don't need to recompute the whole activity scan.
+    window.__dsaStreaks = { currentStreak, maxStreak, totalInView, activeDays: activeDates.length };
 
     const dayCellsHtml = weeks.map(days=>{
       const cells = days.map(d=>{
@@ -1704,6 +2107,16 @@ body{background-image:radial-gradient(circle at 15% -10%, color-mix(in srgb, var
     const monthLabelsHtml = monthLabels.map(m=>{
       const leftPx = m.wi * 14; // 11px cell + 3px gap
       return `<span class="cal-month-lbl" style="left:${leftPx}px">${m.label}</span>`;
+    }).join('');
+
+    // Last 8 weeks' totals, for the velocity sparkline at the bottom of the card.
+    const last8 = weeks.slice(-8);
+    const weekTotals = last8.map(days=>days.reduce((sum,d)=> d<=today ? sum + (activity[dateStr(d)]||0) : sum, 0));
+    const maxWeekTotal = Math.max(1, ...weekTotals);
+    const weeklyVelocityHtml = weekTotals.map((n,i)=>{
+      const h = n ? Math.max(4, Math.round((n/maxWeekTotal)*34)) : 3;
+      const label = i === last8.length-1 ? 'This week' : `${last8.length-1-i} week${last8.length-1-i===1?'':'s'} ago`;
+      return `<span class="cal-velocity-bar ${n?'':'empty'}" style="height:${h}px" title="${label}: ${n} solved"></span>`;
     }).join('');
 
     card.innerHTML = `
@@ -1732,6 +2145,10 @@ body{background-image:radial-gradient(circle at 15% -10%, color-mix(in srgb, var
         <span class="cal-day lvl-3"></span>
         <span class="cal-day lvl-4"></span>
         More
+      </div>
+      <div class="cal-velocity">
+        <span class="cal-velocity-label">Last 8 weeks</span>
+        <div class="cal-velocity-bars">${weeklyVelocityHtml}</div>
       </div>`;
   }
 
@@ -1879,7 +2296,10 @@ body{background-image:radial-gradient(circle at 15% -10%, color-mix(in srgb, var
     closeNoteModal();
   });
   document.addEventListener('keydown', e=>{
-    if(e.key === 'Escape' && noteBackdrop.classList.contains('open')) closeNoteModal();
+    if(e.key !== 'Escape') return;
+    if(noteBackdrop.classList.contains('open')) closeNoteModal();
+    if(document.getElementById('shareBackdrop').classList.contains('open')) document.getElementById('shareBackdrop').classList.remove('open');
+    if(document.getElementById('lbBackdrop').classList.contains('open')) document.getElementById('lbBackdrop').classList.remove('open');
   });
 
   // ---------- Render all ----------
